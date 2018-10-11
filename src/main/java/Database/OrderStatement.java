@@ -1,11 +1,9 @@
 package Database;
 
-import Items.Cart;
-import Items.IPhone;
-import Items.User;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import items.*;
 
 public  class OrderStatement {
     public static PreparedStatement InsertOrder(Cart cart, User user, String adr, String email)

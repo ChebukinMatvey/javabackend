@@ -1,15 +1,20 @@
 package Database;
 
+
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.springframework.beans.factory.annotation.*;
+
 
 public class Database {
 
-    private static DataSource ds = null;
+	@Autowired
+    private static DataSource ds;
 
     public static Connection GetConnection() {
         if (ds == null) {
@@ -33,6 +38,5 @@ public class Database {
         }
         return null;
     }
-
 
 }

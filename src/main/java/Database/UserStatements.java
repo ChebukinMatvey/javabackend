@@ -1,8 +1,9 @@
 package Database;
 
-import Items.User;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import items.User;
 
 public class UserStatements {
 

@@ -1,13 +1,13 @@
-package Servlets;
-
-import Items.Content;
-import Items.IPhone;
+package servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import items.*;
+
 import java.io.IOException;
 
 
@@ -24,7 +24,6 @@ public class NextPageServlet  extends HttpServlet {
             second=content.getSecondItem();
         }
         resp.setContentType("application/json");
-
         req.getSession().setAttribute("Content",content);
         resp.getWriter().write(SendJson.Send(first,second));
     }

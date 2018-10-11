@@ -15,4 +15,10 @@
         <url-pattern>/buy</url-pattern>
     </filter-mapping>
     
+    	<listener>
+      <listener-class>
+         org.springframework.web.context.ContextLoaderListener
+      </listener-class>
+   	</listener>
+    
 </web-app>

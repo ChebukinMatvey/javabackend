@@ -1,11 +1,9 @@
-package Servlets;
+package servlets;
 
 import Database.ContentStatements;
 import Database.DatabaseOperation;
 import Database.Handlers;
-import Items.Content;
-import Items.Filter;
-import Items.IPhone;
+import items.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

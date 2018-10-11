@@ -96,7 +96,7 @@ function initFirst(ob) {
         $("#item1").hide();
     }
 
-    $('#Item1Img').attr('src', ob.imgStr);
+    $('#Item1Img').attr('src',"img/"+ob.imgStr);
     $('#Item1Name').html("Name: "+ob.name);
     $('#Item1Capacity').html("Capacity: "+ob.capacity+" <span class=\"smaller\">gb</span>");
     $('#Item1Price').html("Price: "+ob.price+" <span class=\"smaller\">uah</span>");
@@ -107,7 +107,7 @@ function initSecond(ob) {
     if(ob.capacity==0){
         $("#item2").hide();
     }
-    $('#Item2Img').attr('src', ob.imgStr);
+    $('#Item2Img').attr('src', "img/"+ob.imgStr);
     $('#Item2Name').html("Name: "+ob.name);
     $('#Item2Capacity').html("Capacity: "+ob.capacity+" <span class=\"smaller\">gb</span>");
     $('#Item2Price').html("Price: "+ob.price+" <span class=\"smaller\">uah</span>")

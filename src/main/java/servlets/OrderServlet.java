@@ -1,9 +1,8 @@
-package Servlets;
+package servlets;
 
 import Database.DatabaseOperation;
 import Database.OrderStatement;
-import Items.Cart;
-import Items.User;
+import items.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

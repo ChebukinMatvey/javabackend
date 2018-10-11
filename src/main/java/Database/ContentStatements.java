@@ -1,10 +1,10 @@
 package Database;
 
-import Items.Filter;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import items.*;
 
 public class ContentStatements {
 

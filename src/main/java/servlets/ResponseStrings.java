@@ -1,4 +1,4 @@
-package Servlets;
+package servlets;
 
 public class ResponseStrings {
     public static final String alertError="alert('Error')";

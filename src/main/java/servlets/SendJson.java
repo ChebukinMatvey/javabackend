@@ -1,7 +1,8 @@
-package Servlets;
+package servlets;
 
-import Items.IPhone;
 import com.google.gson.Gson;
+
+import items.*;
 
 public class SendJson {
 

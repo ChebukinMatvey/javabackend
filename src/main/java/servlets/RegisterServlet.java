@@ -1,9 +1,9 @@
-package Servlets;
+package servlets;
 
 import Database.DatabaseOperation;
 import Database.Handlers;
 import Database.UserStatements;
-import Items.User;
+import items.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
