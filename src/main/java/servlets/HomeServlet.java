@@ -1,8 +1,5 @@
 package servlets;
 
-import Database.ContentStatements;
-import Database.DatabaseOperation;
-import Database.Handlers;
 import items.*;
 
 import javax.servlet.ServletException;
@@ -10,6 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import database.ContentStatements;
+import database.DatabaseOperation;
+import database.Handlers;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

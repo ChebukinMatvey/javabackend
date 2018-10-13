@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 public class SqlStrings {
     public static final String GetAllItems="select * from goods";

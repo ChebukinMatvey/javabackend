@@ -1,8 +1,5 @@
 package servlets;
 
-import Database.DatabaseOperation;
-import Database.Handlers;
-import Database.UserStatements;
 import items.*;
 
 import javax.servlet.ServletException;
@@ -10,6 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import database.DatabaseOperation;
+import database.Handlers;
+import database.UserStatements;
+
 import java.io.IOException;
 
 @WebServlet(name = "RegisterServlet",urlPatterns = "/register")

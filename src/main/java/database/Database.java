@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 
 
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.*;
 
 public class Database {
 
-	@Autowired
+
     private static DataSource ds;
 
     public static Connection GetConnection() {
