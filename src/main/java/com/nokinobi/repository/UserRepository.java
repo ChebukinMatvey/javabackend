@@ -17,10 +17,10 @@ public class UserRepository {
 	private static final String InsertUser="insert into users(login,pass)values(?,?)";
 	private static final String FindUser="select * from users where login=? and pass=?";
 	
-	public void add(Connection con,User user) throws SQLException {
+	public Integer add(Connection con,User user) throws SQLException {
 		try(PreparedStatement st=con.prepareStatement(InsertUser)){
 			init(st, user);
-			st.executeUpdate();
+			return st.executeUpdate();
 		}
 	}
 	
@@ -28,7 +28,8 @@ public class UserRepository {
 		try(PreparedStatement st=con.prepareStatement(FindUser)){
 			init(st,user);
 			ResultSet res=st.executeQuery();
-			return new User(res.getString(1),res.getString(2));
+			res.next();
+			return new User(res.getString(2),res.getString(3));
 		}
 	}
 	

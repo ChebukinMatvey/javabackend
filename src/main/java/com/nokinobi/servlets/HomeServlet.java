@@ -8,15 +8,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nokinobi.database.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import com.nokinobi.items.*;
+import com.nokinobi.services.ItemsService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
+	
+	
+	@Autowired
+	private ItemsService itemsService;
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
+	
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
@@ -24,7 +39,7 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Content content=Content.init(DatabaseOperation.ExecuteQuery(ContentStatements.GetAllItems(),Handlers.<ArrayList<IPhone>>getAllItemsHandler()));
+        Content content=Content.init(itemsService.getItems());
 
 
         req.getSession().setAttribute("firstName",content.getFirstItem().getName());

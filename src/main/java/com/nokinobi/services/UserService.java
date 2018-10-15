@@ -1,7 +1,5 @@
 package com.nokinobi.services;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,24 +18,12 @@ public class UserService {
 	@Autowired 
 	private TransactionManager transactionManager;
 	
-	public void add(final User user) {
-		transactionManager.doTransaction(new Operation<Void>() {
-			@Override
-			public Void operation(Connection con) throws SQLException {
-				repository.add(con, user);
-				return null;
-			}
-		});
+	public Integer add(final User user) {
+		return transactionManager.doTransaction( (con)->{ return repository.add(con, user);} );
 	}
 	
 	public User find(final User user) {
-		return transactionManager.doTransaction(new Operation<User>() {
-		@Override
-		public User operation(Connection con) throws SQLException {
-			repository.find(con, user);
-			return null;
-		}
-		});
+		return transactionManager.doTransaction( (con)->repository.find(con, user) );
 	}
 	
 	

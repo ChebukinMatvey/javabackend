@@ -21,11 +21,13 @@ public class TransactionManager {
 			con=ds.getConnection();
 			con.setAutoCommit(false);
 			T res=op.operation(con);
+			con.commit();
 			return res;
 		}catch(SQLException ex) {
 			if(con!=null)
 				try {
 					con.rollback();
+					ex.printStackTrace();
 				} catch (SQLException ex2) {
 					ex2.printStackTrace();
 				}
@@ -36,8 +38,9 @@ public class TransactionManager {
 				e.printStackTrace();
 			}
 		}
-		return null;
-		
+		return null;		
 	}
+
+	
 
 }
