@@ -20,7 +20,7 @@
 <div class="popup login_popup" method="post">
   <div class="bg_popup" onclick="closeLoginPopup()"></div>
   <div class="content_popup">
-    <form action="/login" method="post">
+    <form action="/login.do" method="post">
       <input type="text" placeholder="login" name="login">
       <input type="password" placeholder="password" name="pass">
       <input type="submit" value="Login">
@@ -32,7 +32,7 @@
 <div class="popup reg_popup" >
   <div class="bg_popup" onclick="closeRegPopup()"></div>
   <div class="content_popup">
-    <form action="/register" method="post">
+    <form action="/register.do" method="post">
       <input type="text" placeholder="login" name="login">
       <input type="password" placeholder="password" name="pass">
       <input type="submit" value="Register">
@@ -52,7 +52,7 @@
     </c:if>
     <c:if test="${sessionScope.User ne null}">
       <a href="/pages/cart.jsp">Cart</a>
-      <a href="/logout">Exit</a>
+      <a href="/logout.do">Exit</a>
     </c:if>
 
   </header>
@@ -97,13 +97,13 @@
       <div class="cart" id="item1">
 
         <div class="imgDiv" id="img1">
-          <img src="img/${firstImg}" id="Item1Img" alt="">
+          <img src="img/${Content.firstItem.imgStr}" id="Item1Img" alt="">
         </div>
 
         <div class="info">
-          <p class="infoText" id="Item1Name">Name: ${firstName}</p>
-          <p class="infoText" id="Item1Capacity">Capacity: ${firstCapacity} <span class="smaller">gb</span></p>
-          <p class="infoText" id="Item1Price">Price: ${firstPrice} <span class="smaller">uah</span></p>
+          <p class="infoText" id="Item1Name">Name: ${Content.firstItem.name}</p>
+          <p class="infoText" id="Item1Capacity">Capacity: ${Content.firstItem.capacity} <span class="smaller">gb</span></p>
+          <p class="infoText" id="Item1Price">Price: ${Content.firstItem.price} <span class="smaller">uah</span></p>
         </div>
 
         <button class="buyButton" id="buy1" onclick="buy(this)">Buy</button>
@@ -113,13 +113,13 @@
       <div class="cart" id="item2">
 
         <div class="imgDiv" id="img2">
-          <img src="img/${secondImg}"  id="Item2Img" alt="">
+          <img src="img/${Content.secondItem.imgStr}"  id="Item2Img" alt="">
         </div>
 
         <div class="info">
-          <p class="infoText" id="Item2Name">Name: ${secondName} </p>
-          <p class="infoText" id="Item2Capacity">Capacity: ${secondCapacity} <span class="smaller">gb</span></p>
-          <p class="infoText" id="Item2Price">Price: ${secondPrice} <span class="smaller">uah</span></p>
+          <p class="infoText" id="Item2Name">Name: ${Content.secondItem.name} </p>
+          <p class="infoText" id="Item2Capacity">Capacity: ${Content.secondItem.capacity} <span class="smaller">gb</span></p>
+          <p class="infoText" id="Item2Price">Price: ${Content.secondItem.price} <span class="smaller">uah</span></p>
         </div>
 
         <button class="buyButton" id="buy2" onclick="buy(this)">Buy</button>
@@ -142,7 +142,6 @@
   </footer>
 
   <script>
-      startSlider();
   </script>
 
 </div>

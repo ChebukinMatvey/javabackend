@@ -12,7 +12,7 @@
 
 <div class="info">
     <h1 style="color: red">${errorText}</h1>
-    <a href="/home">StartPage</a>
+    <a href="/items.do">StartPage</a>
 </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.nokinobi.servlets;
+package com.nokinobi.controllers;
 
 public class ResponseStrings {
     public static final String alertError="alert('Error')";
@@ -10,4 +10,5 @@ public class ResponseStrings {
     public static final String SuccessBuy ="Added to cart";
     public static final String OrderError ="Error while order" ;
     public static final String SuccesOrder = "Success order";
+	
 }

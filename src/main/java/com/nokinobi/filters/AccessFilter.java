@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nokinobi.items.*;
-import com.nokinobi.servlets.ResponseStrings;
+import com.nokinobi.controllers.ResponseStrings;
 
 
 public class AccessFilter implements Filter {

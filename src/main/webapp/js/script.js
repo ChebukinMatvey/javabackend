@@ -20,12 +20,17 @@ function goFilter() {
     var mi=$('#min').val();
     var ma=$('#max').val();
     var cap=$('#capacitySelect option:selected').val();
-
+    var json={
+    		name:n,
+    		priceMax:ma,
+    		priceMin:mi,
+    		capacity:cap
+    };
     $.ajax({
         method: 'POST',
-        url: '/doFilter',
+        url: '/filter.do',
         async:true,
-        data:{name:n, min:mi,max:ma,capacity:cap},
+        data:{filterJson:JSON.stringify(json)},
         dataType: "text",
         success: function (data) {
             setItems(data);
@@ -44,7 +49,7 @@ function buy(item){
 
     $.ajax({
         method: 'POST',
-        url: '/buy',
+        url: '/buy.do',
         async:false,
         data:{name:n, capacity:c,price:p,imgStr:iStr},
         dataType: "text",
@@ -58,7 +63,7 @@ function buy(item){
 function prevpage() {
     $.ajax({
         method: 'POST',
-        url: '/prev',
+        url: '/prev.do',
         async:true,
         dataType: "text",
         success: function (data) {
@@ -70,7 +75,7 @@ function prevpage() {
 function nextpage() {
     $.ajax({
         method: 'POST',
-        url: '/next',
+        url: '/next.do',
         async:true,
         dataType: "text",
         success: function (data) {
@@ -134,7 +139,7 @@ function deleteProduct(sender){
     var c=tr.children[1].innerHTML;
     var p=tr.children[2].innerHTML;
     $.ajax({
-        url: "/deletefromcart",
+        url: "/delete.do",
         data: {name: n, capacity: c,price:p},
         type: 'POST',
         async: false,
@@ -143,7 +148,7 @@ function deleteProduct(sender){
 }
 
 function order() {
-    $.post("/order",function(data){
+    $.post("/order.do",function(data){
         document.write(data);
     });
 }

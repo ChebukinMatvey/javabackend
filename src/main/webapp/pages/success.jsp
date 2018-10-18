@@ -13,7 +13,7 @@
 
 <div class="info">
     <h1 style="color: green">${successText}</h1>
-    <a href="/home">StartPage</a>
+    <a href="/items.do">StartPage</a>
     <a href="/pages/cart.jsp">Cart</a>
 </div>
 

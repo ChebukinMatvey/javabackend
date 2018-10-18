@@ -16,7 +16,7 @@
 <div class="orderForm">
     <div class="orderFormBg" onclick="closeOrderFrom()"></div>
     <div  CLASS="content_popup">
-        <form action="/order" method="post">
+        <form action="/order.do" method="post">
             <input type="text" placeholder="Adress" name="adress">
             <input type="email" placeholder="Email" name="email">
             <input type="submit" value="Go">

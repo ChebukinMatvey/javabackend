@@ -59,6 +59,6 @@ public class IPhone {
     @Override
     public boolean equals(Object obj) {
         IPhone item= (IPhone) obj;
-        return this.name.equals(item.name) && this.price == ((IPhone) obj).price && this.capacity == item.capacity;
+        return this.name.equals(item.name) && this.price == item.price && this.capacity == item.capacity;
     }
 }
