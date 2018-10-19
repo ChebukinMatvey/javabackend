@@ -1,30 +1,40 @@
 package com.nokinobi.repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.nokinobi.items.Filter;
 import com.nokinobi.items.IPhone;
 
+import javax.sql.DataSource;
+
 @Repository
 public class ItemsRepository {
 
-	private static final String query = "select * from goods";
-	
-	public List<IPhone> getItems(Connection con) throws SQLException {
-		try(PreparedStatement st=con.prepareStatement(query)){
-			return map(st.executeQuery());
-		}
+	private static final String SelectAll = "select * from goods";
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	private RowMapper<IPhone> mapper=(set,n)->new IPhone(set.getString("name"),
+			set.getString("imgStr"),
+			set.getInt("price"),
+			set.getInt("capacity"));
+
+	public List<IPhone> getItems(DataSource ds) throws SQLException {
+		return jdbcTemplate.query(SelectAll,mapper);
 	}
 	
-	public List<IPhone> getItems(Connection con,Filter filter) throws SQLException {
-		String sql=query+" where";
+	public List<IPhone> getItems(DataSource con, Filter filter) throws SQLException {
+		String sql= SelectAll +" where";
 		if (!filter.getName().equals("default"))
             sql += " name='" + filter.getName() + "'";
         else
@@ -34,23 +44,6 @@ public class ItemsRepository {
         else
             sql +=" and capacity in(32,64,128)";
         sql += " and price>" + filter.getPriceMin() + " and price < " + filter.getPriceMax();
-        
-		try(PreparedStatement st=con.prepareStatement(sql)){
-			return map(st.executeQuery());
-		}
+        return jdbcTemplate.query(sql,mapper);
 	}
-	
-	
-
-	private List<IPhone> map(ResultSet set) throws SQLException {
-		List<IPhone> items=new ArrayList<>();
-		while (set.next()) {
-            items.add(new IPhone(set.getString("name"),
-                    set.getString("imgStr"),
-                    set.getInt("price"),
-                    set.getInt("capacity")));
-        }
-		return items;
-	}
-
 }

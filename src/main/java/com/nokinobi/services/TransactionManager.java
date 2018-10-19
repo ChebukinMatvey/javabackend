@@ -20,7 +20,7 @@ public class TransactionManager {
 		try {
 			con=ds.getConnection();
 			con.setAutoCommit(false);
-			T res=op.operation(con);
+			T res=op.operation(ds);
 			con.commit();
 			return res;
 		}catch(SQLException ex) {

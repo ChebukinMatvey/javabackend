@@ -2,6 +2,7 @@ package com.nokinobi.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import com.nokinobi.items.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,12 @@ import com.nokinobi.items.User;
 import com.nokinobi.services.OrderService;
 import org.w3c.dom.Attr;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
-@SessionAttributes(value = { Attributes.Cart,Attributes.SuccessAttribute,Attributes.ErrorAttribute})
+@SessionAttributes(value = { Attributes.Cart,Attributes.SuccessAttribute,Attributes.ErrorAttribute,Attributes.UserAttribute})
 public class ItemsController {
 
 	@Autowired
@@ -59,8 +64,10 @@ public class ItemsController {
 						@ModelAttribute(value = Attributes.UserAttribute)User user,
 						Model model) {
 
-		int res=orderService.addOrder(cart, user, adr, email);
-		if(res>0) {
+
+
+		int[] res=orderService.addOrder(initOrderList(cart,user,adr,email));
+		if(Arrays.stream(res).sum() > 0) {
 			model.addAttribute(Attributes.Cart, new Cart());
 			model.addAttribute(Attributes.SuccessAttribute, ResponseStrings.SuccesOrder);
 			return "success";
@@ -69,6 +76,21 @@ public class ItemsController {
 			model.addAttribute(Attributes.ErrorAttribute, ResponseStrings.OrderError);
 			return "error";
 		}
+	}
+
+	private List<Order> initOrderList(Cart cart, User user, String adr, String email) {
+		List<Order> items=new ArrayList<>();
+		for (IPhone p:cart){
+			Order item=new Order();
+			item.setName(p.getName());
+			item.setPrice(p.getPrice());
+			item.setCapacity(p.getCapacity());
+			item.setLogin(user.getLogin());
+			item.setAddress(adr);
+			item.setEmail(email);
+			items.add(item);
+		}
+		return items;
 	}
 
 }

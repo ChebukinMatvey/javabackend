@@ -46,11 +46,11 @@
   <header>
     <p class="inline">Make your life easier with apple</p>
 
-    <c:if test="${sessionScope.User eq null}">
+    <c:if test="${sessionScope.User.login eq null}">
       <a href="#" class="inline" onclick="showLoginPopup()">Login</a>
       <a href="#" class="inline" onclick="showRegPopup()">Register</a>
     </c:if>
-    <c:if test="${sessionScope.User ne null}">
+    <c:if test="${sessionScope.User.login ne null}">
       <a href="/pages/cart.jsp">Cart</a>
       <a href="/logout.do">Exit</a>
     </c:if>

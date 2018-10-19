@@ -51,7 +51,7 @@ public class HomeController {
 						@RequestParam(value = Attributes.PasswordAttribute) String pass, Model model) {
 		User user = new User(login, pass);
 		user = userService.find(user);
-		if (user == null) {
+		if (user.getLogin() == null) {
 			model.addAttribute(Attributes.ErrorAttribute, ResponseStrings.UndefUser);
 			return "error";
 		} else {
@@ -78,7 +78,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/logout.do")
 	public String logout(Model model) {
-		model.addAttribute(Attributes.UserAttribute,null);
+		model.addAttribute(Attributes.UserAttribute,new User());
 		return "redirect:items.do";
 	}
 
