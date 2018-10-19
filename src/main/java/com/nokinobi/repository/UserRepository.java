@@ -28,8 +28,9 @@ public class UserRepository {
 		try(PreparedStatement st=con.prepareStatement(FindUser)){
 			init(st,user);
 			ResultSet res=st.executeQuery();
-			res.next();
-			return new User(res.getString(2),res.getString(3));
+			if(res.next())
+				return new User(res.getString(2),res.getString(3));
+			return null;
 		}
 	}
 	

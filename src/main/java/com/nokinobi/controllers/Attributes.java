@@ -1,9 +1,9 @@
 package com.nokinobi.controllers;
 
-public class Constants {
+public class Attributes {
 
-	public static final String errorText ="errorText";
-	public static final String successText ="successText";
+	public static final String ErrorAttribute ="errorAttribute";
+	public static final String SuccessAttribute ="successAttribute";
 	public static final String UserAttribute ="User";
 	public static final String LoginAttribute="login";
 	public static final String PasswordAttribute="pass";

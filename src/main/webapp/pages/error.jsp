@@ -11,7 +11,7 @@
 <body>
 
 <div class="info">
-    <h1 style="color: red">${errorText}</h1>
+    <h1 style="color: red">${errorAttribute}</h1>
     <a href="/items.do">StartPage</a>
 </div>
 </body>

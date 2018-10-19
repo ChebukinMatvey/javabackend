@@ -12,7 +12,7 @@
 <body>
 
 <div class="info">
-    <h1 style="color: green">${successText}</h1>
+    <h1 style="color: green">${successAttribute}</h1>
     <a href="/items.do">StartPage</a>
     <a href="/pages/cart.jsp">Cart</a>
 </div>
