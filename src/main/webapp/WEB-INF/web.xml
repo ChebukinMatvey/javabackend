@@ -11,7 +11,7 @@
 
     <filter-mapping>
         <filter-name>AccessFilter</filter-name>
-        <url-pattern>/buy</url-pattern>
+        <url-pattern>/buy.do</url-pattern>
     </filter-mapping>
 
     <context-param>

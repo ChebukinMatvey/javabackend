@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service;
 import com.nokinobi.items.Cart;
 import com.nokinobi.items.User;
 import com.nokinobi.repository.OrderRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderService {
 
-	@Autowired 
-	private OrderRepository repository;
-	
-	@Autowired
-	private TransactionManager transactionManager;
-	
-	public int[] addOrder(List<Order> items) {
-		return transactionManager.doTransaction((ds)->  repository.addOrder(ds,items));
-	}
-	
+    @Autowired
+    private OrderRepository repository;
+
+
+    public void addOrder(Order order) {
+        repository.addOrder(order);
+    }
+
 }

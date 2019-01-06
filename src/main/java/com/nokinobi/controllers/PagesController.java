@@ -20,7 +20,7 @@ public class PagesController {
 
 	@Autowired
 	private Gson son;
-	
+
 	@RequestMapping(value="/next.do", method=RequestMethod.POST)
 	public ResponseEntity<String> next(@ModelAttribute(Attributes.ContentAttribute)Content content, Model model) {
 		IPhone first=null;

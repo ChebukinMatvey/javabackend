@@ -3,6 +3,8 @@ package com.nokinobi.controllers;
 import javax.servlet.http.HttpSession;
 
 import com.nokinobi.items.Order;
+import com.nokinobi.services.ItemsService;
+import com.nokinobi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +17,6 @@ import com.nokinobi.items.Cart;
 import com.nokinobi.items.IPhone;
 import com.nokinobi.items.User;
 import com.nokinobi.services.OrderService;
-import org.w3c.dom.Attr;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 @SessionAttributes(value = { Attributes.Cart,Attributes.SuccessAttribute,Attributes.ErrorAttribute,Attributes.UserAttribute})
@@ -28,6 +25,12 @@ public class ItemsController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private ItemsService itemsService;
+
 	@RequestMapping(value = "/buy.do")
 	public String addToCart(@RequestParam(value = Attributes.ItemName) String name,
 							@RequestParam(value = Attributes.ItemCapacity) String capacity,
@@ -35,7 +38,6 @@ public class ItemsController {
 							@RequestParam(value = Attributes.ItemImgStr) String imgStr, HttpSession session,
 							@ModelAttribute(value=Attributes.Cart) Cart cart,
 							Model model) {
-
 		IPhone phone = new IPhone(name, imgStr, Integer.parseInt(price), Integer.parseInt(capacity));
 		if (cart == null)
 			cart = new Cart();
@@ -63,34 +65,19 @@ public class ItemsController {
 						@ModelAttribute(value = Attributes.Cart)Cart cart,
 						@ModelAttribute(value = Attributes.UserAttribute)User user,
 						Model model) {
-
-
-
-		int[] res=orderService.addOrder(initOrderList(cart,user,adr,email));
-		if(Arrays.stream(res).sum() > 0) {
-			model.addAttribute(Attributes.Cart, new Cart());
-			model.addAttribute(Attributes.SuccessAttribute, ResponseStrings.SuccesOrder);
-			return "success";
-		}
-		else {
-			model.addAttribute(Attributes.ErrorAttribute, ResponseStrings.OrderError);
-			return "error";
-		}
+		orderService.addOrder(initOrderList(cart,user,adr,email));
+		model.addAttribute(Attributes.Cart, new Cart());
+		model.addAttribute(Attributes.SuccessAttribute, ResponseStrings.SuccesOrder);
+		return "success";
 	}
 
-	private List<Order> initOrderList(Cart cart, User user, String adr, String email) {
-		List<Order> items=new ArrayList<>();
-		for (IPhone p:cart){
-			Order item=new Order();
-			item.setName(p.getName());
-			item.setPrice(p.getPrice());
-			item.setCapacity(p.getCapacity());
-			item.setLogin(user.getLogin());
-			item.setAddress(adr);
-			item.setEmail(email);
-			items.add(item);
-		}
-		return items;
+	private Order initOrderList(Cart cart, User user, String adr, String email) {
+		Order order=new Order();
+		order.setGood_id(cart.getData());
+        order.setUser_id(user);
+        order.setEmal(email);
+        order.setAdr(adr);
+        return order;
 	}
 
 }

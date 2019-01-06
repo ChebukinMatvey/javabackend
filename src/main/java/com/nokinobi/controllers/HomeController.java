@@ -1,6 +1,8 @@
 package com.nokinobi.controllers;
 
 import com.nokinobi.items.*;
+import com.nokinobi.repository.exceptions.RepositoryException;
+import com.nokinobi.repository.exceptions.UserExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.google.gson.Gson;
 import com.nokinobi.services.ItemsService;
 import com.nokinobi.services.UserService;
-import org.w3c.dom.Attr;
 
 @Controller
 @SessionAttributes(value = { Attributes.ContentAttribute, Attributes.UserAttribute, Attributes.SuccessAttribute, Attributes.ErrorAttribute,Attributes.Cart})
@@ -42,8 +42,7 @@ public class HomeController {
 		Filter filter = son.fromJson(filterJson, Filter.class);
 		Content content = Content.init(itemsService.getItems(filter));
 		model.addAttribute(Attributes.ContentAttribute, content);
-		return new ResponseEntity<String>(son.toJson(new IPhone[] { content.getFirstItem(), content.getSecondItem() }),
-				HttpStatus.OK);
+		return new ResponseEntity<String>(son.toJson(new IPhone[] { content.getFirstItem(), content.getSecondItem() }), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/login.do")
@@ -51,7 +50,7 @@ public class HomeController {
 						@RequestParam(value = Attributes.PasswordAttribute) String pass, Model model) {
 		User user = new User(login, pass);
 		user = userService.find(user);
-		if (user.getLogin() == null) {
+		if (user == null) {
 			model.addAttribute(Attributes.ErrorAttribute, ResponseStrings.UndefUser);
 			return "error";
 		} else {
@@ -65,12 +64,13 @@ public class HomeController {
 	public String register(@RequestParam(value = Attributes.LoginAttribute) String login,
 						   @RequestParam(value = Attributes.PasswordAttribute) String pass, Model model) {
 		User user = new User(login, pass);
-		int res = userService.add(user);
-		if (res > 0) {
+		try {
+			userService.add(user);
+			model.addAttribute(Attributes.Cart,new Cart());
 			model.addAttribute(Attributes.UserAttribute, user);
 			return "redirect:items.do";
-		} else {
-			model.addAttribute(Attributes.ErrorAttribute, ResponseStrings.ErrorWhileRegister);
+		}catch (RepositoryException e){
+			model.addAttribute(Attributes.ErrorAttribute,ResponseStrings.ErrorWhileRegister);
 			return "error";
 		}
 

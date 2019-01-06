@@ -1,6 +1,7 @@
 package com.nokinobi.items;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,5 +37,9 @@ public class Cart implements Iterable<IPhone> {
 
     public Iterator<IPhone> iterator() {
         return data.iterator();
+    }
+
+    public Collection<IPhone> getData() {
+        return data;
     }
 }

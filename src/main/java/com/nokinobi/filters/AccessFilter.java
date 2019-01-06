@@ -27,7 +27,7 @@ public class AccessFilter implements Filter {
         HttpServletRequest req=(HttpServletRequest)servletRequest;
         HttpServletResponse resp= (HttpServletResponse) servletResponse;
         User user= (User) req.getSession().getAttribute("User");
-        if(user==null){
+        if(user.getLogin()==null){
             req.getSession().setAttribute("ErrorAttribute",ResponseStrings.BuyError);
             req.getRequestDispatcher("/pages/error.jsp").forward(req,resp);
         }

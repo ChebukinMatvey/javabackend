@@ -1,5 +1,9 @@
 create database myStore;
 use myStore;
+
+
+drop table if not exists users;
+
 create table users(
 	id int primary key auto_increment,
     login varchar(30),
@@ -16,7 +20,7 @@ create table orders(
 	id int primary key auto_increment,
     login varchar(10),
     adress varchar(20),
-    email varchar(20),
+    email varchar(50),
     name varchar(30),
     price int,
     capacity int

@@ -1,59 +1,78 @@
 package com.nokinobi.items;
 
+
+import com.nokinobi.repository.Database;
+
+import javax.persistence.*;
+import java.util.Collection;
+
+@Entity
+@Table(name= Database.Tables.Orders)
 public class Order {
-    private String name;
-    private int Capacity;
-    private int price;
-    private String login;
-    private String address;
-    private String email;
+    @Column(name = Database.OrdersFields.Id)
+    @Id
+    @GeneratedValue
+    private int id;
+    @Column(name = Database.OrdersFields.Email)
+    private String emal;
+    @Column(name = Database.OrdersFields.Adr)
+    private String adr;
 
+    @ManyToOne
+    @JoinColumn(name=Database.OrdersFields.UserId)
+    private User user_id;
 
-    public void setName(String name) {
-        this.name = name;
+    @JoinTable(
+            name = "order_iphone",
+            joinColumns = @JoinColumn(
+                    name = "order_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "good_id",
+                    referencedColumnName = "id"
+            )
+    )
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<IPhone> good_id;
+
+    public void setUser_id(User user_id) {
+        this.user_id = user_id;
     }
 
-    public void setCapacity(int capacity) {
-        Capacity = capacity;
+    public void setGood_id(Collection<IPhone> items) {
+        this.good_id = items;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setEmal(String emal) {
+        this.emal = emal;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setAdr(String adr) {
+        this.adr = adr;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public User getUser_id() {
+        return user_id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Collection<IPhone> getGood_id() {
+        return good_id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmal() {
+        return emal;
     }
 
-    public int getCapacity() {
-        return Capacity;
+    public String getAdr() {
+        return adr;
     }
 
-    public int getPrice() {
-        return price;
+    public int getId() {
+        return id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getEmail() {
-        return email;
+    public void setId(int id) {
+        this.id = id;
     }
 }
