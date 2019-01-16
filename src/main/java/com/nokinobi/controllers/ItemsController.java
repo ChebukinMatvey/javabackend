@@ -73,8 +73,8 @@ public class ItemsController {
 
 	private Order initOrderList(Cart cart, User user, String adr, String email) {
 		Order order=new Order();
-		order.setGood_id(cart.getData());
-        order.setUser_id(user);
+		order.setPhones(cart.getData());
+        order.setUser(user);
         order.setEmal(email);
         order.setAdr(adr);
         return order;

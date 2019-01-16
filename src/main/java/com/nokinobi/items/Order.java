@@ -20,7 +20,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name=Database.OrdersFields.UserId)
-    private User user_id;
+    private User user;
 
     @JoinTable(
             name = "order_iphone",
@@ -29,19 +29,19 @@ public class Order {
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "good_id",
+                    name = "phones",
                     referencedColumnName = "id"
             )
     )
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<IPhone> good_id;
+    private Collection<IPhone> phones;
 
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setGood_id(Collection<IPhone> items) {
-        this.good_id = items;
+    public void setPhones(Collection<IPhone> items) {
+        this.phones = items;
     }
 
     public void setEmal(String emal) {
@@ -52,12 +52,12 @@ public class Order {
         this.adr = adr;
     }
 
-    public User getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public Collection<IPhone> getGood_id() {
-        return good_id;
+    public Collection<IPhone> getPhones() {
+        return phones;
     }
 
     public String getEmal() {
@@ -75,4 +75,14 @@ public class Order {
     public void setId(int id) {
         this.id = id;
     }
+
+
+    public int  getTotal(){
+        int sum=0;
+        for(IPhone p : phones)
+            sum +=p.getPrice();
+        return sum;
+    }
+
+
 }

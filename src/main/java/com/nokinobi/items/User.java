@@ -19,7 +19,7 @@ public class User {
     @Column(name=Database.UsersFileds.Pass)
     private String pass;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user")
     private Collection<Order> orders;
 
     public User() {
