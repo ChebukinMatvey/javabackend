@@ -4,10 +4,11 @@ package com.nokinobi.items;
 import com.nokinobi.repository.Database;
 import com.nokinobi.items.Order;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = Database.Tables.Goods)
-public class IPhone {
+public class IPhone  implements Serializable {
 
     @Column(name = Database.GoodsFields.Id)
     @GeneratedValue

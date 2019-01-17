@@ -1,14 +1,7 @@
 package com.nokinobi.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.nokinobi.items.Filter;
@@ -18,13 +11,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.sql.DataSource;
 
 @Repository
 public class ItemsRepository {
 
     private static final String SelectAll = "select g FROM IPhone g";
     private static final String GetId="select g.id from IPhone g where g.name=:name and g.price=:price and g.capacity=:capacity";
+    private static final String GetById="select g from IPhone g where g.id=:id";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -47,5 +40,24 @@ public class ItemsRepository {
         query.setParameter("price",p.getPrice());
         query.setParameter("capacity",p.getCapacity());
         return query.getFirstResult();
+    }
+
+    public void addItem(IPhone item) {
+        entityManager.persist(item);
+        entityManager.flush();
+    }
+
+    public IPhone updateItem(IPhone item) {
+        return entityManager.merge(item);
+    }
+
+    public void deleteItem(IPhone item) {
+        entityManager.remove(entityManager.contains(item)? item:entityManager.merge(item));
+    }
+
+    public IPhone getItemById(int id) {
+        TypedQuery<IPhone> query = entityManager.createQuery(GetById,IPhone.class);
+        query.setParameter("id",id);
+        return query.getSingleResult();
     }
 }

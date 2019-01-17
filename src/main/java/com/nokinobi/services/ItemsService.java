@@ -29,4 +29,20 @@ public class ItemsService {
 	public int getId(IPhone p) {
 		return repository.getId(p);
 	}
+
+	public IPhone getItemById(int id){
+		return repository.getItemById(id);
+	}
+
+    public void addItem(IPhone item) {
+		repository.addItem(item);
+    }
+
+	public IPhone updateItem(IPhone item) {
+		return repository.updateItem(item);
+	}
+
+	public void deleteItem(IPhone item) {
+		repository.deleteItem(item);
+	}
 }
